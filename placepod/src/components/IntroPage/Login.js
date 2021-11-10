@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <div className="ui page grid">
       <form className="ui form">
         <h1>Sign Up to PlacePod</h1>
         {!logIn && (
@@ -53,8 +53,7 @@ const Login = () => {
             Log In
           </button>
         )}
-      </form>
-      <div
+        <div
         onClick={() => {
           setLogIn(!logIn);
         }}
@@ -62,7 +61,9 @@ const Login = () => {
       >
         {logIn ? <p> Already have an account?</p> : <p>Create an account</p>}
       </div>
-    </Container>
+      </form>
+      
+    </div>
   );
 };
 
