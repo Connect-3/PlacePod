@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from './components/Registration/Login';
+import IntroPage from './components/IntroPage/IntroPage';
 
 const App = () => {
   return (
-      <div>
-        <Login />
-      </div>
+    <div>
+      <IntroPage />
+    </div>
   );
 };
 
