@@ -7,3 +7,7 @@
 input {
     color: red;
 }
+.description-body{
+    background-image:url("../Image/yellow_bg.jpeg");
+    height: 755px;
+}
