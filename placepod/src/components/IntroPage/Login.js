@@ -1,4 +1,3 @@
-import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
 import InputType from './InputType';
 
@@ -17,7 +16,7 @@ const Login = () => {
   };
 
   return (
-    <div className="ui page grid">
+    <div className="login-form">
       <form className="ui form">
         <h1>Sign Up to PlacePod</h1>
         {!logIn && (
@@ -62,8 +61,7 @@ const Login = () => {
         {logIn ? <p> Already have an account?</p> : <p>Create an account</p>}
       </div>
       </form>
-      
-    </div>
+      </div>
   );
 };
 

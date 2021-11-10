@@ -1,0 +1,9 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  padding: 150px 0;
+}
+
+input {
+    color: red;
+}

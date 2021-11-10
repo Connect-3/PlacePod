@@ -1,8 +1,9 @@
 import React from 'react';
+import './IntroPage.css';
 
-const InputType = ({ label, type,val,setVal}) => {
+const InputType = ({ label, type, val, setVal }) => {
   return (
-    <div className="ui field">
+    <div className="ui field ">
       <label>{label}</label>
       <input
         type={type}
