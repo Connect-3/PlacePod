@@ -4,7 +4,7 @@ import './IntroPage.css';
 const InputType = ({ label, type, val, setVal }) => {
   return (
     <div className="ui field ">
-      <label>{label}</label>
+      <label className="input-type-label">{label}</label>
       <input
         type={type}
         onChange={(e) => {
