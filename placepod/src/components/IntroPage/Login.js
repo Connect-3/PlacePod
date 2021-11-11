@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div id="login">
       <form className="ui form">
         <h1>Sign Up to PlacePod</h1>
         {!logIn && (
@@ -30,8 +30,16 @@ const Login = () => {
           val={password}
           setVal={setPassword}
         />
+
+        {!logIn && <div className="ui field">
+          <div className="ui checkbox">
+            <input type="checkbox" required name="example" />
+            <label>I have read and agree to <a href="#">Terms of Services</a></label>
+          </div>
+        </div>}
         {!logIn && (
           <button
+            id="login-button"
             className="ui button"
             type="submit"
             onClick={() => {
@@ -44,6 +52,7 @@ const Login = () => {
 
         {logIn && (
           <button
+            id="login-button"
             className="ui button"
             type="submit"
             onClick={() => {
@@ -59,7 +68,11 @@ const Login = () => {
           }}
           className={{ color: 'red' }}
         >
-          {logIn ? <p> Already have an account?</p> : <p>Create an account</p>}
+          {!logIn ? (
+            <p className="login-p"> Already have an account?</p>
+          ) : (
+            <p className="login-p">Don't have an account?</p>
+          )}
         </div>
       </form>
     </div>

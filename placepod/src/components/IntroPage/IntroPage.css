@@ -1,20 +1,26 @@
 body {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
-// login Component
-#login-form{
+#login {
   display: flex;
-  align-items: center;
-  background-color: red;
+  justify-content: center;
+  padding: 150px 0;
+}
+
+#login-button {
+  color: white;
+  background-color: #8f6aff;
 }
 
 #input-type-input:focus {
-  background-color: #fce4ec;
+  background-color: #f0ecff;
 }
 
-// Description Component
-
+.login-p{
+  padding-top: 10px;
+  color: #7854ff;
+}
 .description-body {
   background-image: url('../Image/yellow_bg.jpeg');
   overflow-y: hidden;
