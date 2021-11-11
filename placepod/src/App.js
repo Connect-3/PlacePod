@@ -1,6 +1,5 @@
 import React from 'react';
 import IntroPage from './components/IntroPage/IntroPage';
-
 const App = () => {
   return (
     <div>

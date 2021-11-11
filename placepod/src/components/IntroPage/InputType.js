@@ -7,6 +7,7 @@ const InputType = ({ label, type, val, setVal }) => {
       <label className="input-type-label">{label}</label>
       <input
         type={type}
+        id="input-type-input"
         onChange={(e) => {
           setVal(e.target.value);
         }}

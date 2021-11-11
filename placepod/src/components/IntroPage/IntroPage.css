@@ -1,6 +1,26 @@
+body{
+    overflow-y: hidden;
+}
+
+
+// login Component 
+
 .login-form {
   display: flex;
   justify-content: center;
   padding: 150px 0;
 }
 
+#input-type-input:focus {
+  background-color: #fce4ec;
+}
+
+
+
+// Description Component
+
+.description-body {
+  background-image: url('../Image/yellow_bg.jpeg');
+  overflow-y: hidden;
+  height: 755px;
+}
