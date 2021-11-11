@@ -1,21 +1,17 @@
-body{
-    overflow-y: hidden;
+body {
+  overflow-y: hidden;
 }
 
-
-// login Component 
-
-.login-form {
+// login Component
+#login-form{
   display: flex;
-  justify-content: center;
-  padding: 150px 0;
+  align-items: center;
+  background-color: red;
 }
 
 #input-type-input:focus {
   background-color: #fce4ec;
 }
-
-
 
 // Description Component
 

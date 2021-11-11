@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InputType from './InputType';
+import './IntroPage.css';
 
 const Login = () => {
   const [logIn, setLogIn] = useState(false);
@@ -16,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-form">
+    <div>
       <form className="ui form">
         <h1>Sign Up to PlacePod</h1>
         {!logIn && (
@@ -53,15 +54,15 @@ const Login = () => {
           </button>
         )}
         <div
-        onClick={() => {
-          setLogIn(!logIn);
-        }}
-        className={{ color: 'red' }}
-      >
-        {logIn ? <p> Already have an account?</p> : <p>Create an account</p>}
-      </div>
+          onClick={() => {
+            setLogIn(!logIn);
+          }}
+          className={{ color: 'red' }}
+        >
+          {logIn ? <p> Already have an account?</p> : <p>Create an account</p>}
+        </div>
       </form>
-      </div>
+    </div>
   );
 };
 
