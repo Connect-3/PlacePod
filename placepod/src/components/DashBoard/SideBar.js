@@ -1,38 +1,36 @@
 import React from 'react';
+import './DashBoard.css'
 
-const SideBar = ()=>{
-    return (
-        <div className="ui items">
-            <div className="item">
-                <div className="ui tiny image">
-                    <i className="deaf icon"></i>
-                </div>
-                <div className="middle aligned ">
-                    <a className="header">PlacePod</a>
-                </div>
-            </div>
-            <div className="ui middle aligned selection list">
-                <div className="item">
-                    <img className="ui avatar image" alt="img" src="/images/avatar/small/helen.jpg" />
-                    <div className="content">
-                        <div className="header">helen</div>
-                    </div>
-                </div>
-                <div className="item">
-                    <img className="ui avatar image" alt="img" src="/images/avatar/small/helen.jpg" />
-                    <div className="content">
-                        <div className="header">helen</div>
-                    </div>
-                </div>
-                <div className="item">
-                    <i className="deaf icon"></i>
-                    <div className="content">
-                        <div className="header">helen</div>
-                    </div>
-                </div>
-            </div>
+
+const SideBar = () => {
+  return (
+    <div className="ui grid">
+      <div className="row grid">
+        <div className="column" id="dashboard-head">
+          PlacePod
+          <i className="low vision icon dashboard-head-icon"></i>
         </div>
-    )
-}
+      </div>
+      <div className="grid">
+        <div className="row dashboard-menu-item">
+          <i className="low vision icon"></i>
+          DashBoard
+        </div>
+        <div className="row dashboard-menu-item">
+          <i className="low vision icon"></i>
+          Profile
+        </div>
+        <div className="row dashboard-menu-item">
+          <i class="low vision icon"></i>
+          Resume
+        </div>
+        <div className="row dashboard-menu-item">
+          <i class="low vision icon"></i>
+          Application List
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default SideBar
+export default SideBar;
