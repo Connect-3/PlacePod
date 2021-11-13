@@ -12,12 +12,38 @@ body {
   color: white;
   background-color: #8f6aff;
 }
-
-#input-type-input:focus {
-  background-color: #f0ecff;
+.description-body{
+    background-image:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg");
+    height: 760px;
+    
+    font-family: 'Varela', sans-serif;
+    background-size: cover;
 }
+.description-h2 {
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  padding: 150px 50px;
+  z-index: -1;
+  font-family: 'Varela';
+  background: rgba(0,0,0, .5);
+  text-decoration-style: wavy;
 
-.login-p {
-  padding-top: 10px;
-  color: #7854ff;
+}
+.description-p{
+  z-index: 4;
+  padding: 20px;
+  line-height: 30px;
+  font-size: 16px;
+}
+.description-know{
+  align-items: center;
+  padding-left: 160px;
+  background: rgba(0,0,0, .5);
+}
+@media screen and (max-width: 720px) {
+  .description-body {
+    padding-left: 20px;
+  }
 }
