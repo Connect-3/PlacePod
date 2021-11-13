@@ -21,19 +21,12 @@ body {
   padding-top: 10px;
   color: #7854ff;
 }
-<<<<<<< HEAD
-.description-body {
-  background-image: url('../Image/yellow_bg.jpeg');
-  overflow-y: hidden;
-  height: 755px;
-=======
 .description-body{
     background-image:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg");
     height: 760px;
     
     font-family: 'Varela', sans-serif;
     background-size: cover;
->>>>>>> f0136520102df91188e30d7111ae60d3facc93cb
 }
 .description-h2 {
   width: 100%;
