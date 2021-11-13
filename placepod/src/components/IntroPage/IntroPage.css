@@ -17,12 +17,7 @@ body {
   background-color: #f0ecff;
 }
 
-.login-p{
+.login-p {
   padding-top: 10px;
   color: #7854ff;
-}
-.description-body {
-  background-image: url('../Image/yellow_bg.jpeg');
-  overflow-y: hidden;
-  height: 755px;
 }
