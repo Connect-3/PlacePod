@@ -1,32 +1,28 @@
 import React from 'react';
-import './DashBoard.css'
-
+import './DashBoard.css';
+import Feed from './Feed';
 
 const SideBar = () => {
   return (
-    <div className="ui grid">
-      <div className="row grid">
-        <div className="column" id="dashboard-head">
-          PlacePod
-          <i className="low vision icon dashboard-head-icon"></i>
+    <div className="ui very thin visible sidebar  vertical menu" id="sidebar">
+      <h1 className="header" id="sidebar-header">
+        <i className="cubes icon"></i>Placepod
+      </h1>
+      <div id="sidebar-items">
+        <div className="ui segment" id="sidebar-segment">
+          <i className="user icon"></i>Profile
         </div>
-      </div>
-      <div className="grid">
-        <div className="row dashboard-menu-item">
-          <i className="low vision icon"></i>
-          DashBoard
+        <div className="ui segment" id="sidebar-segment">
+          <i className="clipboard icon"></i>Pending Application
         </div>
-        <div className="row dashboard-menu-item">
-          <i className="low vision icon"></i>
-          Profile
+        <div className="ui segment" id="sidebar-segment">
+          <i className="keyboard icon"></i>Online Round
         </div>
-        <div className="row dashboard-menu-item">
-          <i class="low vision icon"></i>
-          Resume
+        <div className="ui segment" id="sidebar-segment">
+          <i className="desktop icon"></i>Scheduled Interview
         </div>
-        <div className="row dashboard-menu-item">
-          <i class="low vision icon"></i>
-          Application List
+        <div className="ui segment" id="sidebar-segment">
+          <i className="gift icon"></i>Offers
         </div>
       </div>
     </div>

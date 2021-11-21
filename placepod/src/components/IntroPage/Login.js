@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import InputType from './InputType';
 import './IntroPage.css';
 
 const Login = () => {
   const [logIn, setLogIn] = useState(false);
-  const [email, setEmail] = useState('');
+  const [enrollment, setEnrollment] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const SignIn = () => {
-    return;
+  const SignIn = (e) => {
+    e.preventDefault();
+    const data = { name, enrollment, password };
+    axios.post('http://localhost:4000/register', data);
+    localStorage.setItem('enrollment', enrollment);
+    // window.location = "/home"
   };
 
-  const LogIn = () => {
+  const LogIn = async (e) => {
+    e.preventDefault();
+    const { data } = await axios.post('http://localhost:4000/app/login', {
+      enrollment,
+      password,
+    });
+    if (data.msg === 'Valid Credential') {
+      localStorage.setItem('enrollment', data.enrollment);
+      // window.location("/home")
+    }
     return;
   };
 
@@ -23,7 +38,12 @@ const Login = () => {
         {!logIn && (
           <InputType type="text" label="Name" val={name} setVal={setName} />
         )}
-        <InputType type="email" label="Email" val={email} setVal={setEmail} />
+        <InputType
+          type="text"
+          label="Enrollment"
+          val={enrollment}
+          setVal={setEnrollment}
+        />
         <InputType
           type="password"
           label="Password"
@@ -31,12 +51,16 @@ const Login = () => {
           setVal={setPassword}
         />
 
-        {!logIn && <div className="ui field">
-          <div className="ui checkbox">
-            <input type="checkbox" required name="example" />
-            <label>I have read and agree to <a href="#">Terms of Services</a></label>
+        {!logIn && (
+          <div className="ui field">
+            <div className="ui checkbox">
+              <input type="checkbox" required name="example" />
+              <label>
+                I have read and agree to <a href="#">Terms of Services</a>
+              </label>
+            </div>
           </div>
-        </div>}
+        )}
         {!logIn && (
           <button
             id="login-button"
