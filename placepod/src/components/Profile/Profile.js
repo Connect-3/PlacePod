@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import './Profile.css';
 
 const Profile = () => {
   const [firstName, setFirstName] = useState('');
@@ -23,13 +24,59 @@ const Profile = () => {
 
   useEffect(() => {}, [resume]);
 
+  if (firstName === '' && edit === true) {
+    return (
+      <div className="new-profile">
+        <div class="ui vertical steps">
+          <div class="completed step">
+            <i class="truck icon"></i>
+            <div class="content">
+              <div class="title">Create an Account</div>
+              {/* <div class="description">Choose your shipping options</div> */}
+            </div>
+          </div>
+          <div class="completed step">
+            <i class="truck icon"></i>
+            <div class="content">
+              <div class="title">Login Into the Placepod</div>
+            </div>
+          </div>
+          <div class="active step">
+            <i class="info icon"></i>
+            <div class="content">
+              <div
+                class="title"
+                onClick={() => {
+                  setEdit(false);
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                Complete Your Profile
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className="ui container">
-      <form class="ui form">
+    <div className="ui container" id="profile">
+      <h1 className="header" id="profile-heading">
+        Profile
+      </h1>
+      <br />
+      <form
+        class="ui form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setEdit(true);
+        }}
+      >
         <fieldset disabled={edit ? 'disabled' : ''} style={{ border: 'none' }}>
           <div class="fields">
             <div class="field required">
               <label>First name</label>
+
               <input
                 type="text"
                 value={firstName}
@@ -138,13 +185,7 @@ const Profile = () => {
             </div>
             <div class="field required">
               <label for="phone">Phone Number</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                required
-              />
+              <input type="text" />
             </div>
           </div>
           <div className="fields">
@@ -214,7 +255,7 @@ const Profile = () => {
             </div>
           </div>
           {!edit && (
-            <div className="ui two wide column field required">
+            <div className="ui four wide column field required">
               <label for="test" style={{ cursor: 'pointer' }}>
                 Enter Resume Link
               </label>
@@ -230,6 +271,7 @@ const Profile = () => {
           {!edit && (
             <input
               type="submit"
+              className="ui button"
               onSubmit={() => {
                 setEdit(true);
               }}
@@ -240,6 +282,7 @@ const Profile = () => {
       {edit && (
         <button
           className="ui button"
+          id="profile-edit"
           onClick={() => {
             setEdit(!edit);
             console.log(edit);

@@ -1,5 +1,6 @@
-body {
-  /* overflow: hidden; */
+#intro {
+  position: fixed;
+  overflow-y: hidden;
 }
 
 #login {
@@ -8,9 +9,17 @@ body {
   padding: 150px 0;
 }
 
+div > form > h1 {
+  padding-bottom: 15px;
+}
+
 #login-button {
   color: white;
   background-color: #8f6aff;
+}
+
+.login-p {
+  padding-top: 10px;
 }
 .description-body {
   background-image: url('../Image/loginBack2.jpg');
@@ -29,7 +38,7 @@ body {
   text-decoration-style: wavy;
 }
 .description-p {
-  color: #D1C4E9;
+  color: #d1c4e9;
   z-index: 4;
   padding: 15px;
   line-height: 20px;
