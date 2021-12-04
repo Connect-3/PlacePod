@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Feed from './components/DashBoard/Feed';
-import FeedHeader from './components/DashBoard/FeedHeader';
 import SideBar from './components/DashBoard/SideBar';
 import Profile from './components/Profile/Profile';
 import DetailPage from './components/DetailPage/DetailPage';
 import IntroPage from './components/IntroPage/IntroPage';
-import NavigationBar from './components/NavigationBar/NavigationBar';
+import { createBrowserHistory } from 'history';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [studentData, setStudentData] = useState({});
 
   return (
     <Router>
@@ -31,6 +31,8 @@ const App = () => {
                   setSearchTerm={setSearchTerm}
                   heading="Discover Feed"
                   content="List of all companies currently visiting campus"
+                  studentData={studentData}
+                  setStudentData={setStudentData}
                 />
               </Route>
               <Route path="/coding">
@@ -39,6 +41,8 @@ const App = () => {
                   setSearchTerm={setSearchTerm}
                   heading="Coding Round"
                   content="Coding Round Scheduled for You"
+                  studentData={studentData}
+                  setStudentData={setStudentData}
                 />
               </Route>
               <Route path="/interview">
@@ -47,6 +51,8 @@ const App = () => {
                   setSearchTerm={setSearchTerm}
                   heading="Interview"
                   content="Interview Scheduled for You"
+                  studentData={studentData}
+                  setStudentData={setStudentData}
                 />
               </Route>
               <Route path="/offers">
@@ -55,6 +61,8 @@ const App = () => {
                   setSearchTerm={setSearchTerm}
                   heading="Offers"
                   content="List of Offers you have received"
+                  studentData={studentData}
+                  setStudentData={setStudentData}
                 />
               </Route>
               <Route path="/application">
@@ -63,6 +71,8 @@ const App = () => {
                   setSearchTerm={setSearchTerm}
                   heading="Application"
                   content="Pending application status"
+                  studentData={studentData}
+                  setStudentData={setStudentData}
                 />
               </Route>
               <Route path="/profile">

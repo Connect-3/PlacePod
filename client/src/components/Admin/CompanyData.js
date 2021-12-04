@@ -70,46 +70,5 @@ const CompanyData = () => {
   );
 };
 
-{
-  /* <div className="fields">
-            <div class="field required">
-              <label>Birth Date</label>
-              <input
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                required
-              />
-            </div>
-            <div class="field required">
-              <label for="gender">Gender</label>
-
-              <select
-                name="gender"
-                id="gender"
-                value={gender}
-                onChange={(e) => {
-                  setGender(e.target.value);
-                }}
-                required
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="field required">
-              <label>Graduation Year</label>
-              <input
-                type="text"
-                value={graduationYear}
-                onChange={(e) => {
-                  setGraduationYear(e.target.value);
-                }}
-                required
-              />
-            </div> */
-}
 
 export default CompanyData;

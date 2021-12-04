@@ -4,20 +4,39 @@ import CompanyDetail from './CompanyDetail';
 import FeedHeader from './FeedHeader';
 import './DashBoard.css';
 import NavigationBar from '../NavigationBar/NavigationBar';
-import SearchBar from './SearchBar';
 
-const Feed = ({ searchTerm, setSearchTerm, heading, content }) => {
+const Feed = ({
+  searchTerm,
+  setSearchTerm,
+  heading,
+  content,
+  studentData,
+  setStudentData,
+}) => {
   useEffect(() => {
-    // const response = async ()=>{
-    // const data = await axios.get("")
-    // }
-    // response();
-  }, []);
+    try {
+      const response = async () => {
+        const res = await axios.get('/feed', { withCredentials: true });
+        console.log(res);
+        // if (!res.status === 200) {
+        //   window.location = '/';
+        //   const error = await new Error(res.error);
+        //   console.log(error);
+        //   throw error;
+        // }
+        // setStudentData(res.data);
+      };
+      response();
+    } catch (err) {
+      alert(err);
+    }
+  }, [setStudentData]);
 
   const Apply = () => {
     const data = axios.post('', {});
     // enrollment and opportunity id
   };
+
   const [canApply, setCanApply] = useState(true);
   const array = [
     {
@@ -152,9 +171,13 @@ const Feed = ({ searchTerm, setSearchTerm, heading, content }) => {
   };
   return (
     <div className="ui" id="feed">
-      <NavigationBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <NavigationBar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        studentData={studentData}
+      />
       <FeedHeader heading={heading} content={content} />
-      <table class="ui fixed table">
+      <table className="ui fixed table">
         <thead>
           <tr>
             <th>Name</th>

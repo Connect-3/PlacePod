@@ -26,26 +26,26 @@ const Profile = () => {
 
   if (firstName === '' && edit === true) {
     return (
-      <div className="new-profile">
-        <div class="ui vertical steps">
-          <div class="completed step">
-            <i class="truck icon"></i>
-            <div class="content">
-              <div class="title">Create an Account</div>
-              {/* <div class="description">Choose your shipping options</div> */}
+      <div classNameName="new-profile">
+        <div className="ui vertical steps">
+          <div className="completed step">
+            <i className="truck icon"></i>
+            <div className="content">
+              <div className="title">Create an Account</div>
+              {/* <div className="description">Choose your shipping options</div> */}
             </div>
           </div>
-          <div class="completed step">
-            <i class="truck icon"></i>
-            <div class="content">
-              <div class="title">Login Into the Placepod</div>
+          <div className="completed step">
+            <i className="truck icon"></i>
+            <div className="content">
+              <div className="title">Login Into the Placepod</div>
             </div>
           </div>
-          <div class="active step">
-            <i class="info icon"></i>
-            <div class="content">
+          <div className="active step">
+            <i className="info icon"></i>
+            <div className="content">
               <div
-                class="title"
+                className="title"
                 onClick={() => {
                   setEdit(false);
                 }}
@@ -66,15 +66,15 @@ const Profile = () => {
       </h1>
       <br />
       <form
-        class="ui form"
+        className="ui form"
         onSubmit={(e) => {
           e.preventDefault();
           setEdit(true);
         }}
       >
         <fieldset disabled={edit ? 'disabled' : ''} style={{ border: 'none' }}>
-          <div class="fields">
-            <div class="field required">
+          <div className="fields">
+            <div className="field required">
               <label>First name</label>
 
               <input
@@ -86,7 +86,7 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field">
+            <div className="field">
               <label>Middle name</label>
               <input
                 type="text"
@@ -96,7 +96,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label>Last name</label>
               <input
                 type="text"
@@ -109,7 +109,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="fields">
-            <div class="field required">
+            <div className="field required">
               <label>Birth Date</label>
               <input
                 type="date"
@@ -118,7 +118,7 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label for="gender">Gender</label>
 
               <select
@@ -137,7 +137,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="fields">
-            <div class="field required">
+            <div className="field required">
               <label>Enrollment</label>
               <input
                 type="text"
@@ -148,7 +148,7 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label>Joining Year</label>
               <input
                 type="text"
@@ -159,7 +159,7 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label>Graduation Year</label>
               <input
                 type="text"
@@ -172,7 +172,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="fields">
-            <div class="field required">
+            <div className="field required">
               <label>Email</label>
               <input
                 type="email"
@@ -183,13 +183,13 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label for="phone">Phone Number</label>
               <input type="text" />
             </div>
           </div>
           <div className="fields">
-            <div class="field required">
+            <div className="field required">
               <label>Couse</label>
               <input
                 type="text"
@@ -200,7 +200,7 @@ const Profile = () => {
                 required
               />
             </div>
-            <div class="field required">
+            <div className="field required">
               <label>Branch</label>
               <input
                 type="text"
@@ -213,7 +213,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="fields">
-            <div class="field">
+            <div className="field">
               <label>Linkedin</label>
               <input
                 type="url"
@@ -223,7 +223,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <div class="field">
+            <div className="field">
               <label>Github</label>
               <input
                 type="url"
@@ -233,7 +233,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <div class="field">
+            <div className="field">
               <label>Codeforces</label>
               <input
                 type="url"
@@ -243,7 +243,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <div class="field">
+            <div className="field">
               <label>CodeChef</label>
               <input
                 type="url"

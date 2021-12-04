@@ -22,7 +22,6 @@ const CompanyDetail = ({
   };
 
   const isApplyButton = () => {
-    console.log('debug');
     if (window.location.pathname === '/home') {
       return (
         <td>

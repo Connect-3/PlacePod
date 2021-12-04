@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
 import InputType from './InputType';
 import './IntroPage.css';
 
 const Login = () => {
   const [logIn, setLogIn] = useState(false);
   const [enrollment, setEnrollment] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const SignIn = (e) => {
-    e.preventDefault();
-    const data = { name, enrollment, password };
-    axios.post('http://localhost:4000/register', data);
-    localStorage.setItem('enrollment', enrollment);
-    // window.location = "/home"
+  const SignIn = async (e) => {
+    try {
+      e.preventDefault();
+      const data = { email, enrollment, password };
+      const res = await axios.post('/register', data);
+      if (res.status === 422) alert('domo');
+      if (res.status === 201) {
+        window.location = '/home';
+      } else alert('Invaid Credentials');
+    } catch (err) {
+      alert(err.response.data.error);
+    }
   };
 
   const LogIn = async (e) => {
-    e.preventDefault();
-    const { data } = await axios.post('http://localhost:4000/app/login', {
-      enrollment,
-      password,
-    });
-    if (data.msg === 'Valid Credential') {
-      localStorage.setItem('enrollment', data.enrollment);
-      // window.location("/home")
+    try {
+      e.preventDefault();
+      const res = await axios.post('/login', {
+        enrollment,
+        password,
+      });
+
+      console.log(res);
+      if (res.status === 200) {
+        window.location = '/home';
+      } else {
+        alert('debug');
+      }
+    } catch (err) {
+      console.log(err);
+      alert(err.response.data.error);
     }
+
     return;
   };
 
@@ -36,7 +50,7 @@ const Login = () => {
       <form className="ui form">
         <h1>Sign Up to PlacePod</h1>
         {!logIn && (
-          <InputType type="text" label="Name" val={name} setVal={setName} />
+          <InputType type="email" label="Email" val={email} setVal={setEmail} />
         )}
         <InputType
           type="text"
@@ -66,9 +80,7 @@ const Login = () => {
             id="login-button"
             className="ui button"
             type="submit"
-            onClick={() => {
-              SignIn();
-            }}
+            onClick={SignIn}
           >
             Sign In
           </button>
@@ -79,9 +91,7 @@ const Login = () => {
             id="login-button"
             className="ui button"
             type="submit"
-            onClick={() => {
-              LogIn();
-            }}
+            onClick={LogIn}
           >
             Log In
           </button>
