@@ -10,7 +10,7 @@ const OpportunitySchema = new mongoose.Schema({
     required: true,
   },
   ctc: {
-    type: Number,
+    type: String,
     required: true,
   },
   date: {
@@ -18,7 +18,7 @@ const OpportunitySchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: Number,
+    type: String,
     required: true,
   },
   min_cg: {
@@ -35,10 +35,10 @@ const OpportunitySchema = new mongoose.Schema({
   },
   job_description_pdf: {
     type: String,
-    required: true,
+    required: false,
   },
   stage: {
-    type: Number,
+    type: String, //
     required: true,
   },
   students: {
@@ -51,4 +51,4 @@ const OpportunitySchema = new mongoose.Schema({
   },
 });
 
-module.exports = Opportunity = mongoose.model('opportunity',OpportunitySchema);
+module.exports = Opportunity = mongoose.model('opportunity', OpportunitySchema);

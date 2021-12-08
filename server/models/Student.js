@@ -46,7 +46,7 @@ const StudentSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  linkedIn: {
+  linkedin: {
     type: String,
     required: false,
   },
@@ -59,10 +59,6 @@ const StudentSchema = new mongoose.Schema({
     required: false,
   },
   codechef: {
-    type: String,
-    required: false,
-  },
-  atcoder: {
     type: String,
     required: false,
   },

@@ -19,8 +19,15 @@ div > form > h1 {
 }
 
 .login-p {
+  cursor: pointer;
   padding-top: 10px;
 }
+
+.admin-p {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .description-body {
   background-image: url('../Image/loginBack2.jpg');
   height: 760px;

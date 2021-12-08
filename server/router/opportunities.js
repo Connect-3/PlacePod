@@ -3,6 +3,7 @@ const router = express.Router();
 
 require('../db/conn');
 const Opportunity = require('../models/Opportunity');
+const Student = require('../models/Student');
 
 router.post('/opportunity', async (req, res) => {
   try {
@@ -29,7 +30,6 @@ router.post('/opportunity', async (req, res) => {
       !min_cg ||
       !position_type ||
       !job_description ||
-      !job_description_pdf ||
       !stage ||
       !students
     ) {
@@ -64,10 +64,80 @@ router.post('/opportunity', async (req, res) => {
     if (opportunityAdded) {
       res.status(201).json({ message: 'opportunity added' });
     } else {
-      res.status(400).json({message: 'error'});
+      res.status(400).json({ message: 'error' });
     }
   } catch {
     (err) => console.log(err);
+  }
+});
+
+router.post('/editopportunity', async (req, res) => {
+  try {
+    const {
+      company_name,
+      job_title,
+      ctc,
+      category,
+      min_cg,
+      position_type,
+      job_description,
+      stage,
+      students,
+      date,
+    } = req.body;
+
+    if (
+      !company_name ||
+      !job_title ||
+      !ctc ||
+      !date ||
+      !category ||
+      !min_cg ||
+      !position_type ||
+      !job_description ||
+      !stage ||
+      !students
+    ) {
+      res.status(422).json({ error: 'Fill all the fields' });
+    }
+
+    const key = company_name + '_' + job_title + '_' + stage + '_' + date;
+
+    const entry = await Opportunity.findOne({ key: key });
+    const enrollmentArray = entry.students;
+    const studentArray = Student.find({ enrollment: { $in: enrollmentArray } });
+
+    for (let i = 0; i < studentArray.length; i++) {
+      const idx = studentArray[i].opportunities.indexOf(entry._id);
+      if (idx !== -1) {
+        studentArray[i].opportnities.splice(idx, 1);
+        studentArray[i].save();
+      }
+    }
+    entry.company_name = company_name;
+    entry.job_title = job_title;
+    entry.ctc = ctc;
+    entry.date = date;
+    entry.category = category;
+    entry.min_cg = min_cg;
+    entry.position_type = position_type;
+    entry.job_description = job_description;
+    entry.stage = stage;
+    entry.students = students;
+    entry.key = key;
+
+    const enrollmentArray2 = students;
+    const studentArray2 = Student.find({
+      enrollment: { $in: enrollmentArray2 },
+    });
+    for (let i = 0; i < studentArray2.length; i++) {
+      studentArray2[i].push(entry._id);
+      studentArray2[i].save();
+    }
+    entry.save();
+    res.status(200).json({ message: 'opportunity Updated' });
+  } catch (err) {
+    (err) => res.send(404);
   }
 });
 

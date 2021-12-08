@@ -1,74 +1,124 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import LeftForm from './LeftForm';
+import RightForm from './RightForm';
+import './admin.css';
 
 const CompanyData = () => {
-  const [edit, setEdit] = useState(false);
+  const [companyData, setCompanyData] = useState({});
+  const [array, setArray] = useState([]);
+
+  useEffect(() => {
+    if (localStorage.getItem('editAdmin') === true) {
+      try {
+        const response1 = async () => {
+          const res = await axios.get('/getOpportunityDetail', {
+            _id: localStorage.getItem('opportunityId'),
+          });
+
+          if (res.status === 200) {
+            const obj = res;
+            setArray(obj.students);
+            delete obj.students;
+            setCompanyData(obj);
+          } else {
+            const err = new Error();
+            throw err;
+          }
+        };
+        response1();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
+
+  const arrayData = [
+    {
+      enrollment: '18103281',
+    },
+    {
+      enrollment: '18103287',
+    },
+    {
+      enrollment: '18103324',
+    },
+  ];
+
+  useEffect(() => {
+    setArray(arrayData);
+  }, []);
+  const handleChange = (e) => {
+    setCompanyData({ ...companyData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const students = array
+        .filter((item) => {
+          return item.isChecked === true;
+        })
+        .map((item) => {
+          return item.isChecked === true ? item.enrollment : null;
+        });
+      let response;
+      if (localStorage.getItem('editAdmin')) {
+        response = await axios.post('/editopportunity', {
+          ...companyData,
+          students,
+        });
+        localStorage.removeItem('editAdmin');
+        localStorage.removeItem('opportunitId');
+      } else {
+        response = await axios.post('/opportunity', {
+          ...companyData,
+          students,
+        });
+      }
+      if (response.status === 201) {
+        alert('successful');
+        window.location = '/adminHome';
+      } else {
+        alert('error');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleChangeCheckbox = (e) => {
+    const { name, checked } = e.target;
+    if (name === 'allSelect') {
+      let tempArray = array.map((item) => {
+        return { ...item, isChecked: checked };
+      });
+      setArray(tempArray);
+    } else {
+      let tempArray = array.map((item) => {
+        return item.enrollment === name
+          ? { ...item, isChecked: checked }
+          : item;
+      });
+      setArray(tempArray);
+    }
+  };
+
   return (
-    <div className="ui container">
+    <div id="admin-grid">
+      <h1 className="header" id="admin-h1">
+        Opportunity Panel
+      </h1>
       <form className="ui form">
-        <fieldset disabled={edit ? 'disabled' : ''} style={{ border: 'none' }}>
-          <div className="fields">
-            <div className="field">
-              <label for="name">Company Name</label>
-              <input type="text" id="name" />
-            </div>
-            <div className="field">
-              <label for="role">Job role</label>
-              <input type="text" id="role" />
-            </div>
-            <div className="field">
-              <label for="type">Job type</label>
-              <input type="text" id="type" />
-            </div>
-          </div>
-          <div className="fields">
-            <div className="field">
-              <label for="ctc">Ctc</label>
-              <input type="text" id="ctc" />
-            </div>
-            <div className="field">
-              <label for="register-date">Registration Date</label>
-              <input type="date" id="register-date" />
-            </div>
-            <div className="field">
-              <label for="test-date">Test Date</label>
-              <input type="date" id="test-date" />
-            </div>
-          </div>
-          <div className="fields">
-            <div className="field">
-              <label for="description">Description</label>
-              <textarea id="description" rows="3"></textarea>
-            </div>
-            <div className="field">
-              <label for="ctc breakup">Ctc breakup</label>
-              <textarea id="ctc breakup" rows="3"></textarea>
-            </div>
-          </div>
-          <div className="fields">
-            <div className="field">
-              <label for="duration">ELIGIBLE COURSES (INCOMPLETE)</label>
-              <textarea id="duration" rows="3"></textarea>
-            </div>
-            <div className="field">
-              <label for="Eligibility Courses">Eligibility Courses</label>
-              <textarea id="eligibility courses" rows="3" />
-            </div>
-            <div className="field">
-              <label for="other">Other Details</label>
-              <textarea id="other" rows="3" cols="3" />
-            </div>
-          </div>
-          <div className="field">
-            {edit && <input type="submit" className="ui button" />}
-          </div>
-        </fieldset>
+        <div className="ui grid">
+          <LeftForm handleChange={handleChange} handleSubmit={handleSubmit} />
+          <RightForm
+            handleChangeCheckbox={handleChangeCheckbox}
+            array={array}
+          />
+        </div>
       </form>
-      <div className="field">
-        {!edit && <button className="ui button">Edit Details</button>}
-      </div>
     </div>
   );
 };
-
 
 export default CompanyData;

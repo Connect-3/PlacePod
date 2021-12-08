@@ -5,26 +5,24 @@ require('../db/conn');
 const Student = require('../models/Student');
 
 router.post('/updateProfile', async (req, res) => {
-  const {
-    enrollment,
-    email,
-    firstName,
-    middleName,
-    lastName,
-    phone,
-    gender,
-    branch,
-    graduationYear,
-    cg,
-    linkedin,
-    github,
-    codeforces,
-    codechef,
-    atcoder,
-    resume,
-  } = req.body;
-
   try {
+    const {
+      enrollment,
+      email,
+      firstName,
+      middleName,
+      lastName,
+      phone,
+      gender,
+      branch,
+      graduationYear,
+      cg,
+      linkedin,
+      github,
+      codeforces,
+      codechef,
+      resume,
+    } = req.body;
     if (
       !enrollment ||
       !email ||
@@ -41,43 +39,40 @@ router.post('/updateProfile', async (req, res) => {
     }
 
     const profileExist = await Student.findOne({ enrollment: enrollment });
-
     if (!profileExist) {
       return res.status(422).json({ error: "Profile Doesn't exist" });
     }
-
-    const profile = new Student({
-      enrollment,
-      email,
-      firstName,
-      middleName,
-      lastName,
-      phone,
-      gender,
-      branch,
-      graduationYear,
-      cg,
-      linkedin,
-      github,
-      codechef,
-      codeforces,
-      atcoder,
-      resume,
-    });
-
-    await profile.save();
+    
+    profileExist.firstName = firstName;
+    profileExist.middleName = middleName;
+    profileExist.lastName = lastName;
+    profileExist.email = email;
+    profileExist.enrollment = enrollment;
+    profileExist.phone = phone;
+    profileExist.gender = gender;
+    profileExist.branch = branch;
+    profileExist.graduationYear = graduationYear;
+    profileExist.cg = cg;
+    profileExist.linkedin = linkedin;
+    profileExist.github = github;
+    profileExist.codeforces = codeforces;
+    profileExist.codechef = codechef;
+    profileExist.resume = resume;
+    console.log(profileExist);
+    
+    await profileExist.save();
     res.status(201).json({ message: 'profile updated' });
   } catch (err) {
-    console.log(err);
+    console.log(err.res);
   }
 });
 
 router.get('/retrieveProfile', async (req, res) => {
   try {
-    const { enrollment } = req.body;
+    const { enrollment } = req.query;
     let profile = await Student.findOne({ enrollment: enrollment });
     if (profile) {
-      res.send(profile);
+      res.status(200).send(profile);
     } else {
       res.status(400).json({ message: 'error' });
     }

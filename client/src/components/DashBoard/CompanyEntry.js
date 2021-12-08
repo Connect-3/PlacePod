@@ -2,13 +2,14 @@ import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CompanyDetail = ({
+const CompanyEntry = ({
   role,
   companyName,
   EmployeementType,
   ctc,
   registrationDate,
-  Apply,
+  opportunityId,
+  enrollment,
 }) => {
   const isValid = () => {
     const givenDate = new Date(registrationDate);
@@ -21,11 +22,26 @@ const CompanyDetail = ({
     else return 'registration ends';
   };
 
+  const AddOpportunity = async () => {
+    const res = await axios.post('/opportunityApply', {
+      enrollment,
+      opportunityId,
+    });
+
+    if (res.status === 201) {
+      alert('opportunity added');
+    } else {
+      alert('opportunity not added');
+    }
+  };
+
   const isApplyButton = () => {
     if (window.location.pathname === '/home') {
       return (
         <td>
-          <button className="ui button">Apply</button>
+          <button className="ui button" button onClick={AddOpportunity}>
+            Apply
+          </button>
         </td>
       );
     }
@@ -57,4 +73,4 @@ const CompanyDetail = ({
   );
 };
 
-export default CompanyDetail;
+export default CompanyEntry;

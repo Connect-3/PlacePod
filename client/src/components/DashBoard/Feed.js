@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CompanyDetail from './CompanyDetail';
+import CompanyEntry from './CompanyEntry';
 import FeedHeader from './FeedHeader';
 import './DashBoard.css';
 import NavigationBar from '../NavigationBar/NavigationBar';
@@ -12,104 +12,17 @@ const Feed = ({
   content,
   studentData,
   setStudentData,
+  updateStudent,
+  renderedList,
 }) => {
+  const [array, setArray] = useState([]);
   useEffect(() => {
-    try {
-      const response = async () => {
-        const res = await axios.get('/feed', { withCredentials: true });
-        console.log(res);
-        // if (!res.status === 200) {
-        //   window.location = '/';
-        //   const error = await new Error(res.error);
-        //   console.log(error);
-        //   throw error;
-        // }
-        // setStudentData(res.data);
-      };
-      response();
-    } catch (err) {
-      alert(err);
-    }
-  }, [setStudentData]);
+    setArray(renderedList);
+  }, [setArray, renderedList]);
 
-  const Apply = () => {
-    const data = axios.post('', {});
-    // enrollment and opportunity id
-  };
+
 
   const [canApply, setCanApply] = useState(true);
-  const array = [
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'full Time',
-      companyName: 'Coinbase',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'full Time',
-      companyName: 'Coinbase',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'full Time',
-      companyName: 'Coinbase',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-    {
-      role: 'Software Engineer',
-      ctc: '1000',
-      registrationDate: '2022-05-03',
-      EmployeementType: 'intern',
-      companyName: 'Uber',
-    },
-  ];
 
   const isValid = (company) => {
     console.log(searchTerm);
@@ -127,7 +40,7 @@ const Feed = ({
   };
 
   const RenderedList = () => {
-    if (array.length === 0) return <div>Everything is Catch Up</div>;
+    if (array.length === 0) return;
 
     return array
       .filter((company) => {
@@ -138,14 +51,15 @@ const Feed = ({
       })
       .map((company) => {
         return (
-          <CompanyDetail
+          <CompanyEntry
             canApply={canApply}
-            role={company.role}
+            role={company.job_title}
             ctc={company.ctc}
-            registrationDate={company.registrationDate}
-            EmployeementType={company.EmployeementType}
-            companyName={company.companyName}
-            Apply={Apply}
+            registrationDate={company.date}
+            EmployeementType={company.position_type}
+            companyName={company.company_name}
+            opportunityId={company._id}
+            enrollment={studentData.enrollment}
           />
         );
       });

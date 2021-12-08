@@ -9,6 +9,11 @@ const LogOut = async () => {
       const error = new Error(res.error);
       throw error;
     }
+    if (localStorage.getItem('enrollment'))
+      localStorage.removeItem('enrollment');
+
+    if (localStorage.getItem('adminNumber'))
+      localStorage.removeItem('adminNumber');
     window.location = '/';
   } catch (err) {
     console.log(err);

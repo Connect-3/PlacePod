@@ -3,8 +3,8 @@ import axios from 'axios';
 import InputType from './InputType';
 import './IntroPage.css';
 
-const Login = () => {
-  const [logIn, setLogIn] = useState(false);
+const Login = ({ admin, setAdmin }) => {
+  const [logIn, setLogIn] = useState(true);
   const [enrollment, setEnrollment] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,13 +33,11 @@ const Login = () => {
 
       console.log(res);
       if (res.status === 200) {
+        localStorage.setItem('enrollment', enrollment);
         window.location = '/home';
-      } else {
-        alert('debug');
       }
     } catch (err) {
       console.log(err);
-      alert(err.response.data.error);
     }
 
     return;
@@ -48,7 +46,8 @@ const Login = () => {
   return (
     <div id="login">
       <form className="ui form">
-        <h1>Sign Up to PlacePod</h1>
+        {!logIn && <h1>SignIn to PlacePod</h1>}
+        {logIn && <h1>LogIn to PlacePod</h1>}
         {!logIn && (
           <InputType type="email" label="Email" val={email} setVal={setEmail} />
         )}
@@ -105,7 +104,17 @@ const Login = () => {
           {!logIn ? (
             <p className="login-p"> Already have an account?</p>
           ) : (
-            <p className="login-p">Don't have an account?</p>
+            <p className="login-p">Don't have an account? </p>
+          )}
+          {logIn && (
+            <p
+              className="admin-p"
+              onClick={() => {
+                setAdmin(1);
+              }}
+            >
+              Admin Portal
+            </p>
           )}
         </div>
       </form>

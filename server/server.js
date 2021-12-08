@@ -7,9 +7,12 @@ dotenv.config({ path: './config.env' });
 require('./db/conn'); // mongoose imported
 app.use(cookieParser());
 app.use(express.json());
+app.use(require('./router/admin.js'));
 app.use(require('./router/auth'));
 app.use(require('./router/opportunities'));
 app.use(require('./router/Profile'));
+app.use(require('./router/opportunityApply'));
+// app.use(require('./router/retrieveOppList'));
 // app.get('/', (req, res) => {
 // res.send('hello world');
 // }); // linked our router file

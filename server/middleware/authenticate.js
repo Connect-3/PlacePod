@@ -4,6 +4,7 @@ const Student = require('../models/Student');
 const Authenticate = async (req, res, next) => {
   try {
     const token = req.cookies.jwttoken;
+    if (!token) res.send('token undefined');
     const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
 
     const rootStudent = await Student.findOne({
@@ -20,9 +21,11 @@ const Authenticate = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log('debug-jwttoken');
     res.status(400).json({ error: 'Unauthorized: No token provided' });
   }
 };
 
 module.exports = Authenticate;
+
+
+

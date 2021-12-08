@@ -15,33 +15,11 @@ const DetailPage = ({
 }) => {
   return (
     <div id="detailpage">
-      <div className="card">
-        <div className="card-body">
-          <h2>Registration Schedule</h2>
-          <p>04:00 PM, 29-Sep-2021</p>
-          <p> 05:00 PM, 30-Sep-2021</p>
-          <h5>
-            Deadline will not be extended. Plese fil the form in the given
-            Deadline
-          </h5>
-        </div>
-      </div>
       <div className="cardright">
-        <div className="card-Image">
-          <img src={logo} width="100" height="50" />
-        </div>
         <div className="Company-details">
           <h1 className="company-position">Software Devloper</h1>
-          <div className="company-name">Chaayos</div>
-          <div className="details">
-            <div className="heading1">Employment Type</div>
-            <div className="heading2">Location</div>
-            <div className="heading3">CTC</div>
-          </div>
-          <div className="furthur-details">
-            <div className="employment-type">Chaayos1</div>
-            <div className="location">Chaayos2</div>
-            <div className="ctc">Chaayos3</div>
+          <div className="company-name">
+            <h3>Chaayos</h3>
           </div>
         </div>
       </div>
