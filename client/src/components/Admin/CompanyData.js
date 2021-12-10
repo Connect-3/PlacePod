@@ -5,76 +5,66 @@ import RightForm from './RightForm';
 import './admin.css';
 
 const CompanyData = () => {
-  const [companyData, setCompanyData] = useState({});
-  const [array, setArray] = useState([]);
+  const [company_name, setCompanyName] = useState('');
+  const [job_title, setJobTitle] = useState('');
+  const [ctc, setCtc] = useState('');
+  const [date, setDate] = useState('');
+  const [category, setCategory] = useState('');
+  const [cg, setCg] = useState(0);
+  const [position_type, setPositionType] = useState('');
+  const [job_description, setJobDescription] = useState('');
+  const [stage, setStage] = useState('');
+  const [_id, setId] = useState();
+  let [students, setStudents] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem('editAdmin') === true) {
-      try {
-        const response1 = async () => {
-          const res = await axios.get('/getOpportunityDetail', {
-            _id: localStorage.getItem('opportunityId'),
-          });
-
-          if (res.status === 200) {
-            const obj = res;
-            setArray(obj.students);
-            delete obj.students;
-            setCompanyData(obj);
-          } else {
-            const err = new Error();
-            throw err;
-          }
-        };
-        response1();
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    if (!localStorage.getItem('adminNumber')) return (window.location = '/');
   });
-
-  const arrayData = [
-    {
-      enrollment: '18103281',
-    },
-    {
-      enrollment: '18103287',
-    },
-    {
-      enrollment: '18103324',
-    },
-  ];
-
   useEffect(() => {
-    setArray(arrayData);
+    if (localStorage.getItem('editAdmin')) {
+      const obj = JSON.parse(localStorage.getItem('opportunity'));
+      setCompanyName(obj.company_name);
+      setJobTitle(obj.job_title);
+      setCtc(obj.ctc);
+      setDate(obj.date);
+      setCategory(obj.category);
+      setCg(obj.min_cg);
+      setPositionType(obj.position_type);
+      setJobDescription(obj.job_description);
+      setStage(obj.stage);
+      setStudents(obj.students);
+      setId(obj._id);
+    }
   }, []);
-  const handleChange = (e) => {
-    setCompanyData({ ...companyData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const students = array
+      students = students
         .filter((item) => {
           return item.isChecked === true;
         })
         .map((item) => {
-          return item.isChecked === true ? item.enrollment : null;
+          return { enrollment: item.enrollment };
         });
+      const obj = {
+        company_name,
+        job_title,
+        ctc,
+        min_cg: cg,
+        stage,
+        category,
+        job_description,
+        date,
+        students,
+        position_type,
+        _id,
+      };
       let response;
       if (localStorage.getItem('editAdmin')) {
-        response = await axios.post('/editopportunity', {
-          ...companyData,
-          students,
-        });
-        localStorage.removeItem('editAdmin');
-        localStorage.removeItem('opportunitId');
+        response = await axios.post('/editopportunity', obj);
       } else {
-        response = await axios.post('/opportunity', {
-          ...companyData,
-          students,
-        });
+        response = await axios.post('/opportunity', obj);
       }
       if (response.status === 201) {
         alert('successful');
@@ -82,24 +72,22 @@ const CompanyData = () => {
       } else {
         alert('error');
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const handleChangeCheckbox = (e) => {
     const { name, checked } = e.target;
     if (name === 'allSelect') {
-      let tempArray = array.map((item) => {
+      let tempArray = students.map((item) => {
         return { ...item, isChecked: checked };
       });
-      setArray(tempArray);
+      setStudents(tempArray);
     } else {
-      let tempArray = array.map((item) => {
+      let tempArray = students.map((item) => {
         return item.enrollment === name
           ? { ...item, isChecked: checked }
           : item;
       });
-      setArray(tempArray);
+      setStudents(tempArray);
     }
   };
 
@@ -110,11 +98,35 @@ const CompanyData = () => {
       </h1>
       <form className="ui form">
         <div className="ui grid">
-          <LeftForm handleChange={handleChange} handleSubmit={handleSubmit} />
-          <RightForm
-            handleChangeCheckbox={handleChangeCheckbox}
-            array={array}
+          <LeftForm
+            setCompanyName={setCompanyName}
+            setJobTitle={setJobTitle}
+            setCtc={setCtc}
+            setDate={setDate}
+            setCategory={setCategory}
+            setCg={setCg}
+            setPositionType={setPositionType}
+            setJobDescription={setJobDescription}
+            setStage={setStage}
+            setStudents={setStudents}
+            company_name={company_name}
+            job_title={job_title}
+            ctc={ctc}
+            date={date}
+            category={category}
+            cg={cg}
+            position_type={position_type}
+            job_description={job_description}
+            stage={stage}
+            students={students}
+            handleSubmit={handleSubmit}
           />
+          {localStorage.getItem('editAdmin') && (
+            <RightForm
+              handleChangeCheckbox={handleChangeCheckbox}
+              students={students}
+            />
+          )}
         </div>
       </form>
     </div>

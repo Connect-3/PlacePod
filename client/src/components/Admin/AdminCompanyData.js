@@ -2,10 +2,19 @@ import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AdminCompanyData = ({ companyName, role, ctc, date, status, _id }) => {
+const AdminCompanyData = ({
+  companyName,
+  role,
+  ctc,
+  date,
+  status,
+  _id,
+  opportunity,
+}) => {
+
   const deleteOpportunity = async () => {
     try {
-      const response = await axios.post('', {
+      const response = await axios.post('/deleteOpportunity', {
         _id: _id,
       });
 
@@ -16,6 +25,7 @@ const AdminCompanyData = ({ companyName, role, ctc, date, status, _id }) => {
       console.log(err);
     }
   };
+
 
   return (
     <tr>
@@ -33,7 +43,7 @@ const AdminCompanyData = ({ companyName, role, ctc, date, status, _id }) => {
             className="ui button"
             onClick={() => {
               localStorage.setItem('editAdmin', true);
-              localStorage.setItem('opportunityId', { _id });
+              localStorage.setItem('opportunity', JSON.stringify(opportunity));
             }}
           >
             Edit

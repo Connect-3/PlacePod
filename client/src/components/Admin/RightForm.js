@@ -1,14 +1,15 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './admin.css';
 
-const RightForm = ({ handleChangeCheckbox, array }) => {
+const RightForm = ({ handleChangeCheckbox, students }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const RenderedList = () => {
-    if (array.length === 0) return;
-
-    return array
+    if (students === undefined) return;
+    if (students.length === 0) return;
+    console.log(students);
+    const array1 = students
       .filter((item) => {
         if (searchTerm === '') return item;
         else if (
@@ -32,8 +33,8 @@ const RightForm = ({ handleChangeCheckbox, array }) => {
           </div>
         );
       });
+    return array1;
   };
-
   return (
     <div className="ui five wide column" id="admin-right">
       <h1>List of Students</h1>
@@ -46,19 +47,24 @@ const RightForm = ({ handleChangeCheckbox, array }) => {
               setSearchTerm(e.target.value);
             }}
           />
-          <div class="field">
-            <div class="ui checkbox">
-              <input
-                type="checkbox"
-                name="allSelect"
-                onChange={handleChangeCheckbox}
-                checked={
-                  array.filter((item) => item?.isChecked !== true).length < 1
-                }
-              />
-              <label>All Select</label>
+          {students && students.length > 0 && (
+            <div class="field">
+              <div class="ui checkbox">
+                <input
+                  type="checkbox"
+                  name="allSelect"
+                  onChange={handleChangeCheckbox}
+                  checked={
+                    students
+                      ? students.filter((item) => item?.isChecked !== true)
+                          .length < 1
+                      : false
+                  }
+                />
+                <label>All Select</label>
+              </div>
             </div>
-          </div>
+          )}
           {RenderedList()}
         </div>
       </div>

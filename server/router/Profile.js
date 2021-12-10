@@ -58,7 +58,6 @@ router.post('/updateProfile', async (req, res) => {
     profileExist.codeforces = codeforces;
     profileExist.codechef = codechef;
     profileExist.resume = resume;
-    console.log(profileExist);
     
     await profileExist.save();
     res.status(201).json({ message: 'profile updated' });

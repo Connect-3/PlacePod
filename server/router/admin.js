@@ -18,16 +18,24 @@ router.get('/getOpportunitiesAdmin', async (req, res) => {
 router.post('/deleteOpportunity', async (req, res) => {
   try {
     const { _id } = req.body;
-    const opportunity = await Opportunity.findByIdAndRemove(_id);
-    if (!opportunity) {
-      res.status(404).send("Opportunity doesn't exist");
+    const opp = await Opportunity.findOne({ _id: _id });
+    let students = opp.students;
+    students = students.map((student) => student.enrollment);
+    students = await Student.find({ enrollment: { $in: students } });
+    for (let i = 0; i < students.length; i++) {
+      const idx = students[i].opportunities.indexOf(_id);
+      if (idx !== -1) {
+        students[i].opportunities.splice(idx, 1);
+        students[i].save();
+      }
     }
-    res.status(200).send('Opportunity Deleted');
+    const opportunity = await Opportunity.findByIdAndRemove(_id);
+    res.status(200).json({ message: 'opportunity deleted' });
   } catch (err) {
     res.status(404).json(err);
   }
 });
 
-router.get('')
+router.get('');
 
 module.exports = router;

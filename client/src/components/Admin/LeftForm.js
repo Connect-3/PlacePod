@@ -1,7 +1,29 @@
 import React from 'react';
 import './admin.css';
 
-const LeftForm = ({ handleChange, handleSubmit }) => {
+const LeftForm = ({
+  setCompanyName,
+  setJobTitle,
+  setCtc,
+  setDate,
+  setCategory,
+  setCg,
+  setPositionType,
+  setStage,
+  setStudents,
+  setJobDescription,
+  company_name,
+  job_title,
+  ctc,
+  date,
+  category,
+  cg,
+  position_type,
+  stage,
+  students,
+  job_description,
+  handleSubmit,
+}) => {
   return (
     <div className="eight wide column" id="admin-left">
       <div className="ui container">
@@ -10,9 +32,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
             <label for="name">Company Name</label>
             <input
               type="text"
-              id="name"
-              name="company_name"
-              onChange={handleChange}
+              value={company_name}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
           </div>
           <div className="field">
@@ -21,7 +42,10 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
               type="text"
               id="role"
               name="job_title"
-              onChange={handleChange}
+              value={job_title}
+              onChange={(e) => {
+                setJobTitle(e.target.value);
+              }}
             />
           </div>
           <div className="field">
@@ -30,26 +54,49 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
               type="text"
               id="type"
               name="position_type"
-              onChange={handleChange}
+              value={position_type}
+              onChange={(e) => {
+                setPositionType(e.target.value);
+              }}
             />
           </div>
         </div>
         <div className="fields">
           <div className="field">
             <label for="ctc">ctc</label>
-            <input type="text" id="ctc" name="ctc" onChange={handleChange} />
+            <input
+              type="text"
+              id="ctc"
+              name="ctc"
+              value={ctc}
+              onChange={(e) => {
+                setCtc(e.target.value);
+              }}
+            />
           </div>
           <div className="field">
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" onChange={handleChange} />
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+              }}
+            />
           </div>
           <div className="field">
             <label for="cg">cg</label>
             <input
-              type="String"
+              type="Number"
+              step="0.1"
               id="cg"
               name="min_cg"
-              onChange={handleChange}
+              value={cg}
+              onChange={(e) => {
+                setCg(e.target.value);
+              }}
             />
           </div>
         </div>
@@ -60,7 +107,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
               id="description"
               rows="3"
               name="job_description"
-              onChange={handleChange}
+              value={job_description}
+              onChange={(e) => setJobDescription(e.target.value)}
             ></textarea>
           </div>
         </div>
@@ -73,7 +121,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="category"
                 value="0"
-                onChange={handleChange}
+                checked={category === '0'}
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label>mass</label>
             </div>
@@ -84,7 +133,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="category"
                 value="1"
-                onChange={handleChange}
+                checked={category === '1'}
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label>below 10 LPA</label>
             </div>
@@ -95,7 +145,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="category"
                 value="2"
-                onChange={handleChange}
+                checked={category === '2'}
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label>below 20 LPA</label>
             </div>
@@ -106,7 +157,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="category"
                 value="3"
-                onChange={handleChange}
+                checked={category === '3'}
+                onChange={(e) => setCategory(e.target.value)}
               />
               <label>Dream</label>
             </div>
@@ -120,7 +172,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="stage"
                 value="0"
-                onChange={handleChange}
+                checked={stage === '0'}
+                onChange={(e) => setStage(e.target.value)}
               />
               <label>Application</label>
             </div>
@@ -132,7 +185,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="stage"
                 value="1"
-                onChange={handleChange}
+                checked={stage === '1'}
+                onChange={(e) => setStage(e.target.value)}
               />
               <label>Coding Round</label>
             </div>
@@ -143,7 +197,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="stage"
                 value="2"
-                onChange={handleChange}
+                checked={stage === '2'}
+                onChange={(e) => setStage(e.target.value)}
               />
               <label>Interview</label>
             </div>
@@ -154,7 +209,8 @@ const LeftForm = ({ handleChange, handleSubmit }) => {
                 type="radio"
                 name="stage"
                 value="3"
-                onChange={handleChange}
+                checked={stage === '3'}
+                onChange={(e) => setStage(e.target.value)}
               />
               <label>Offer</label>
             </div>

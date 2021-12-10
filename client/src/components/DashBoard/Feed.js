@@ -15,33 +15,28 @@ const Feed = ({
   updateStudent,
   renderedList,
 }) => {
+  console.log(studentData);
   const [array, setArray] = useState([]);
   useEffect(() => {
     setArray(renderedList);
   }, [setArray, renderedList]);
-
-
 
   const [canApply, setCanApply] = useState(true);
 
   const isValid = (company) => {
     console.log(searchTerm);
     return (
-      company.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.job_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       company.ctc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      company.registrationDate
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      company.EmployeementType.toLowerCase().includes(
-        searchTerm.toLowerCase()
-      ) ||
-      company.companyName.toLowerCase().includes(searchTerm.toLowerCase())
+      company.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.position_type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.company_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
   const RenderedList = () => {
     if (array.length === 0) return;
-
+    console.log(array);
     return array
       .filter((company) => {
         if (searchTerm === '') return company;

@@ -8,15 +8,16 @@ const Login = ({ admin, setAdmin }) => {
   const [enrollment, setEnrollment] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cg, setCg] = useState();
 
   const SignIn = async (e) => {
     try {
       e.preventDefault();
-      const data = { email, enrollment, password };
+      const data = { email, enrollment, password, cg };
       const res = await axios.post('/register', data);
       if (res.status === 422) alert('domo');
       if (res.status === 201) {
-        window.location = '/home';
+        window.location = '/';
       } else alert('Invaid Credentials');
     } catch (err) {
       alert(err.response.data.error);
@@ -31,7 +32,7 @@ const Login = ({ admin, setAdmin }) => {
         password,
       });
 
-      console.log(res);
+
       if (res.status === 200) {
         localStorage.setItem('enrollment', enrollment);
         window.location = '/home';
@@ -63,7 +64,9 @@ const Login = ({ admin, setAdmin }) => {
           val={password}
           setVal={setPassword}
         />
-
+        {!logIn && (
+          <InputType type="Number" label="cg" val={cg} setVal={setCg} />
+        )}
         {!logIn && (
           <div className="ui field">
             <div className="ui checkbox">

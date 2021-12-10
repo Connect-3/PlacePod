@@ -21,11 +21,8 @@ const Authenticate = async (req, res, next) => {
 
     next();
   } catch (err) {
-    res.status(400).json({ error: 'Unauthorized: No token provided' });
+    res.status(400);
   }
 };
 
 module.exports = Authenticate;
-
-
-

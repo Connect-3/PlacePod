@@ -1,42 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeedHeader from '../DashBoard/FeedHeader';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import { Link } from 'react-router-dom';
 import AdminCompanyData from './AdminCompanyData';
+import axios from 'axios';
 
-const array = [
-  {
-    companyname: 'amazon',
-    role: 'sde',
-    date: '2022-21-12',
-    ctc: '10000',
-    status: 'interview',
-    _id: 1234,
-  },
-];
+const AdminList = ({ searchTerm, setSearchTerm, heading, content, stage }) => {
+  const [array, setArray] = useState([]);
 
-const AdminList = ({ searchTerm, setSearchTerm, heading, content }) => {
+  useEffect(() => {
+    if (!localStorage.getItem('adminNumber')) window.location = '/';
+  });
+  useEffect(() => {
+    try {
+      const response = async () => {
+        const res = await axios.get('/getOpportunitiesAdmin');
+        if (res.status === 200) {
+          setArray(res.data);
+          console.log(array);
+        }
+      };
+
+      response();
+    } catch (err) {
+      console.log(err);
+    }
+  });
   useEffect(() => {
     if (localStorage.getItem('editAdmin')) {
       localStorage.removeItem('editAdmin');
-      localStorage.removeItem('opportunityId');
+      localStorage.removeItem('opportunity');
     }
   });
   const adminData = {
     enrollment: localStorage.getItem('adminNumber'),
   };
 
+  const isStatus = (company) => {
+    if (company.stage === '0') return 'Application';
+    else if (company.stage === '1') return 'Coding Round';
+    else if (company.stage === '2') return 'Interview Round';
+    else if (company.stage === '3') return 'Offer';
+  };
+
   const isValid = (company) => {
     return (
-      company.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.job_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       company.ctc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      company.registrationDate
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      company.EmployeementType.toLowerCase().includes(
-        searchTerm.toLowerCase()
-      ) ||
-      company.companyName.toLowerCase().includes(searchTerm.toLowerCase())
+      company.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.job_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.company_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
@@ -53,12 +66,14 @@ const AdminList = ({ searchTerm, setSearchTerm, heading, content }) => {
       .map((company) => {
         return (
           <AdminCompanyData
-            companyName={company.companyname}
-            role={company.role}
+            companyName={company.company_name}
+            stage={company.stage}
+            role={company.job_title}
             ctc={company.ctc}
-            status={company.status}
             date={company.date}
             _id={company._id}
+            status={isStatus(company)}
+            opportunity={company}
           />
         );
       });
@@ -73,7 +88,9 @@ const AdminList = ({ searchTerm, setSearchTerm, heading, content }) => {
       />
       <FeedHeader heading={heading} content={content} />
       <Link to="/adminedit">
-        <button className="ui button" id="admin-opportunity">Add Opportunity</button>
+        <button className="ui button" id="admin-opportunity">
+          Add Opportunity
+        </button>
       </Link>
       <table className="ui fixed table">
         <thead>
@@ -87,7 +104,9 @@ const AdminList = ({ searchTerm, setSearchTerm, heading, content }) => {
             <th>Delete</th>
           </tr>
         </thead>
-        <tbody>{RenderedList()}</tbody>
+        <tbody style={{ overflow: 'auto', maxHeight: 400 }}>
+          {RenderedList()}
+        </tbody>
       </table>
     </div>
   );

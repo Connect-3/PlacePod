@@ -23,6 +23,7 @@ const HomeList = ({
           console.log(error);
           throw error;
         }
+        
         updateStudent(res.data);
       };
       response();
@@ -34,6 +35,7 @@ const HomeList = ({
   useEffect(() => {
     const response = async () => {
       try {
+        console.log(studentData);
         const res = await axios.get('/opportunitiesretrieve', {
           params: {
             enrollment: localStorage.getItem('enrollment'),

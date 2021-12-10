@@ -17,10 +17,6 @@ const CompanyEntry = ({
     return givenDate > today ? true : false;
   };
 
-  const showDate = () => {
-    if (isValid()) return `registration till: ${registrationDate}`;
-    else return 'registration ends';
-  };
 
   const AddOpportunity = async () => {
     const res = await axios.post('/opportunityApply', {

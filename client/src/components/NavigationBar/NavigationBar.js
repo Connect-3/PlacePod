@@ -21,6 +21,7 @@ const LogOut = async () => {
 
   window.location = '/';
 };
+
 const NavigationBar = ({ searchTerm, setSearchTerm, studentData }) => {
   return (
     <div>

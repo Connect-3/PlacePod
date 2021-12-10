@@ -17,7 +17,6 @@ const Application = ({
       const response = async () => {
         const res = await axios.get('/feed', { withCredentials: true });
         if (res.data === 'token undefined') window.location = '/';
-
         if (!res.status === 200) {
           window.location = '/';
           const error = await new Error(res.error);

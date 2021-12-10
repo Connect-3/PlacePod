@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import './Profile.css';
 
@@ -49,6 +50,9 @@ const Profile = ({ setStudentData, studentData }) => {
     }
   };
 
+  useEffect(() => {
+    if (!localStorage.getItem('enrollment')) window.location = '/';
+  });
   useEffect(() => {
     const response = async () => {
       const res = await axios.get('/retrieveProfile', {

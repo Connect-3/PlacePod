@@ -9,9 +9,9 @@ const Student = require('../models/Student');
 const Admin = require('../models/Admin');
 
 router.post('/register', async (req, res) => {
-  const { enrollment, email, password } = req.body;
+  const { enrollment, email, password, cg } = req.body;
   try {
-    if (!enrollment || !email || !password) {
+    if (!enrollment || !email || !password || !cg) {
       return res.status(422).json({ error: 'Fill all the fields' });
     }
     const studentExist = await Student.findOne({ enrollment: enrollment });
@@ -20,7 +20,8 @@ router.post('/register', async (req, res) => {
       return res.status(422).json({ error: 'Account Already Exist' });
     }
 
-    const student = new Student({ enrollment, email, password });
+    const student = new Student({ enrollment, email, password, cg });
+
     await student.save();
     res.status(201).json({ message: 'user registration complete' });
   } catch {
@@ -48,7 +49,7 @@ router.post('/login', async (req, res) => {
       if (!isMatch) {
         res.status(400).json({ error: 'Invalid Credentials' });
       } else {
-        res.status(200).json({ message: 'user login successfully' });
+        res.status(200).send(token);
       }
     } else {
       res.status(400).json({ error: 'Invalid Credentials' });
@@ -63,11 +64,9 @@ router.post('/adminlogin', async (req, res) => {
     const { adminNumber, password } = req.body;
     if (!adminNumber || !password)
       return res.status(422).json({ error: 'Fill all the fields' });
-    console.log(adminNumber, password);
     const adminLogin = await Admin.findOne({ adminNumber: adminNumber });
     if (adminLogin) {
       const isMatch = await bcrypt.compare(password, adminLogin.password);
-      console.log(isMatch);
       const token = await adminLogin.generateAuthToken();
       res.cookie('jwttoken', token, {
         expires: new Date(Date.now() + 25892000000),

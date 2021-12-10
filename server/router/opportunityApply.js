@@ -12,7 +12,7 @@ router.post('/opportunityApply', async (req, res) => {
   let student = await Student.findOne({ enrollment: enrollment });
   let opp = await Opportunity.findOne({ _id: opportunityId });
 
-  opp.students.push(student.enrollment);
+  opp.students.push({ enrollment: student.enrollment });
   student.opportunities.push(opp._id);
 
   await student.save();
@@ -22,7 +22,7 @@ router.post('/opportunityApply', async (req, res) => {
 });
 
 router.get('/opportunitiesretrieve', async (req, res) => {
-  const { enrollment, cg } = req.body;
+  const { enrollment, cg } = req.query;
 
   var today = new Date();
   const date = today.toISOString().substring(0, 10);
@@ -132,9 +132,8 @@ router.get('/applicationretrive', async (req, res) => {
 
   const student = await Student.findOne({ enrollment: enrollment });
   const opportunityIds = student.opportunities;
-
   const filter = {
-    stage: { $eq: 1 },
+    stage: { $eq: 0 },
     _id: {
       $in: opportunityIds,
     },
