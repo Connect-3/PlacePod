@@ -14,6 +14,7 @@ const Feed = ({
   setStudentData,
   updateStudent,
   renderedList,
+  load,
 }) => {
   console.log(studentData);
   const [array, setArray] = useState([]);
@@ -36,7 +37,6 @@ const Feed = ({
 
   const RenderedList = () => {
     if (array.length === 0) return;
-    console.log(array);
     return array
       .filter((company) => {
         if (searchTerm === '') return company;
@@ -55,6 +55,7 @@ const Feed = ({
             companyName={company.company_name}
             opportunityId={company._id}
             enrollment={studentData.enrollment}
+            resume={studentData.resume}
           />
         );
       });
@@ -97,6 +98,14 @@ const Feed = ({
           </tr>
         </thead>
         <tbody>{RenderedList()}</tbody>
+        <div style={{ maxHeight: '20px' }}>
+          {load && (
+            <div className='loading'>
+              <div id="loader"></div>
+              <p>Loading</p>
+            </div>
+          )}
+        </div>
       </table>
     </div>
   );

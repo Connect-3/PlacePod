@@ -10,6 +10,7 @@ const CompanyEntry = ({
   registrationDate,
   opportunityId,
   enrollment,
+  resume,
 }) => {
   const isValid = () => {
     const givenDate = new Date(registrationDate);
@@ -17,11 +18,11 @@ const CompanyEntry = ({
     return givenDate > today ? true : false;
   };
 
-
   const AddOpportunity = async () => {
     const res = await axios.post('/opportunityApply', {
       enrollment,
       opportunityId,
+      resume: resume,
     });
 
     if (res.status === 201) {
@@ -59,7 +60,14 @@ const CompanyEntry = ({
   return (
     <tr>
       <td>
-        <Link to="/companydetail">{companyName}</Link>
+        <Link
+          to={{
+            pathname: '/companydetail',
+            state: { opportunityId: opportunityId },
+          }}
+        >
+          {companyName}
+        </Link>
       </td>
       <td>{role}</td>
       <td>{ctc}</td>

@@ -11,6 +11,7 @@ const HomeList = ({
   updateStudent,
 }) => {
   const [renderedList, setRenderedList] = useState([]);
+  const [load, setLoad] = useState(true);
   useEffect(() => {
     try {
       const response = async () => {
@@ -23,7 +24,7 @@ const HomeList = ({
           console.log(error);
           throw error;
         }
-        
+
         updateStudent(res.data);
       };
       response();
@@ -35,7 +36,6 @@ const HomeList = ({
   useEffect(() => {
     const response = async () => {
       try {
-        console.log(studentData);
         const res = await axios.get('/opportunitiesretrieve', {
           params: {
             enrollment: localStorage.getItem('enrollment'),
@@ -44,8 +44,8 @@ const HomeList = ({
         });
 
         if (res.status === 200) {
-          setRenderedList(res.data);
-          console.log(res.data);
+          setLoad(false);
+          setRenderedList(res.data.opportunities);
         } else {
           console.log('error');
         }
@@ -67,6 +67,7 @@ const HomeList = ({
       setStudentData={setStudentData}
       updateStudent={updateStudent}
       renderedList={renderedList}
+      load={load}
     />
   );
 };

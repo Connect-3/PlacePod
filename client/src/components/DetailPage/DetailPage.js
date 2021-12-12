@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../DetailPage/detailpage.css';
 import logo from '../Image/yellow_bg.jpeg';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 const DetailPage = ({
   registrationDate,
   role,
@@ -13,73 +15,79 @@ const DetailPage = ({
   cg,
   OtherDe,
 }) => {
+  const data = useLocation();
+  const [opp, setOpp] = useState({});
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    try {
+      const response = async () => {
+        const res = await axios.get('/getOpportunityDetail', {
+          params: {
+            _id: data.state.opportunityId,
+          },
+        });
+
+        if (res.status === 200) {
+          setLoad(false);
+          setOpp(res.data.opportunity);
+        }
+      };
+      response();
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  const isCategory = (category) => {
+    if (category === 0) return 'Mass';
+    else if (category === 1) return 'Below 10LPA';
+    else if (category === 2) return 'Below 20LPA';
+    else return 'DREAM';
+  };
+
+  if (load) {
+    return (
+      <div class="ui " style={{ marginTop: '90vh' }}>
+        <div class="ui active inverted dimmer">
+          <div class="ui text loader">Loading</div>
+        </div>
+        <p></p>
+      </div>
+    );
+  }
+
   return (
     <div id="detailpage">
       <div className="cardright">
         <div className="Company-details">
-          <h1 className="company-position">Software Devloper</h1>
+          <h1 className="company-position">{opp.job_title}</h1>
           <div className="company-name">
-            <h3>Chaayos</h3>
+            <h3>{opp.company_name}</h3>
           </div>
         </div>
       </div>
       <div className="description-company">
-        <div className="description-title">Description:</div>
-        <div className="description">
-          About Chaayos Started by two IITians – Nitin Saluja and Raghav Verma –
-          in November 2012, Chaayos is India’s most loved Chai Café. Chaayos is
-          a contemporary take to the age-old concept of “Chai-adda” or "Tea
-          Room" culture, a place where chai is considered the perfect companion
-          to every discussion ranging from life, work, society & politics.
-          Chaayos is known for its signature “Meri Wali Chai” where guests can
-          choose exactly how to make their chai from over 80,000+ ways of making
-          freshly brewed chai. The food menu at Chaayos revolves around Chai and
-          suits all day consumption. Skills & Abilities Required: Java, Java8,
-          Spring, Angularjs, Html, Css, Reactjs, Spring Mvc, Spring Boot, Mysql,
-          Redis, Mongodb, Aws Role Summary 1. Should have a working knowledge of
-          Java/Java8, Spring framework, Spring boot and Spring MVC 2. Should
-          have a good understanding of Restful web services. 3. Should have
-          experience in MySQL 4. Should be comfortable with Frontend
-          Technologies as well like Javascript, HTML, CSS and Javascript
-          frameworks. 5. Working knowledge of NoSQL databases like MongoDB would
-          be desirable. 6. Working knowledge of different Caching strategies
-          like Redis, Hazelcast would be desirable as well. 7. Should have
-          experience in Tomcat8, Jboss server and Maven for Build Management. 8.
-          Should have experience on working in Amazon Web Services and its
-          different offerings. 9. Should have experience on working in Agile
-          environment. 10. Knowledge of Testng, Junit And Mockito frameworks is
-          desirable. 11. Working knowledge of Git and Github for Source Code
-          Management.
-        </div>
+        <div className="description-title">Position</div>
+        <div className="description">{opp.position_type}</div>
       </div>
       <div className="description-company">
-        <div className="description-title">Duration</div>
-        <div className="description">12 Months</div>
+        <div className="description-title">Job Description</div>
+        <div className="description">{opp.job_description}</div>
       </div>
       <div className="description-company">
-        <div className="description-title">Eligible Courses</div>
-        <div className="description">B.Tech - IT, B.Tech - CSE</div>
+        <div className="description-title">Ctc</div>
+        <div className="description">{opp.ctc}</div>
       </div>
+
       <div className="description-company">
         <div className="description-title">Eligibility Criteria</div>
-        <div className="description">
-          Education: B.E/B.TECH/M.C.A/M.TECH in Computer Science and Information
-          Technology
-        </div>
+        <div className="description">Min_cg : {opp.min_cg}</div>
       </div>
+
       <div className="description-company">
-        <div className="description-title">Selection Process Details</div>
-        <div className="description">Online Test Tech Round 1</div>
-      </div>
-      <div className="description-company">
-        <div className="description-title">Other Details</div>
-        <div className="description">
-          Internship Period is for 6 -12 months After the internship, for a
-          selected few based on the performance and requirement of the company,
-          the company will offer a package of Rs.12,00,000 Break down Fixed -
-          Rs. 7,00,000/- Performance Linked Incentive - Rs. 2,00,000/- Employee
-          Stock Options - Worth Rs.3,00,000/-
-        </div>
+        <div className="description-title">Category</div>
+        <div className="description">{isCategory(opp.category)}</div>
       </div>
     </div>
   );

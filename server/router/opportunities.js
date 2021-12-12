@@ -147,4 +147,15 @@ router.post('/editopportunity', async (req, res) => {
   }
 });
 
+router.get('/getOpportunityDetail', async (req, res) => {
+  try {
+    const { _id } = req.query;
+    const opportunity = await Opportunity.findOne({ _id: _id });
+
+    if (opportunity) res.status(200).json({ opportunity: opportunity });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+});
+
 module.exports = router;

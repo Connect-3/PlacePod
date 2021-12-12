@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CompanyData from './CompanyData';
 
 const AdminCompanyData = ({
   companyName,
@@ -11,21 +12,18 @@ const AdminCompanyData = ({
   _id,
   opportunity,
 }) => {
-
   const deleteOpportunity = async () => {
     try {
       const response = await axios.post('/deleteOpportunity', {
         _id: _id,
       });
-
-      if (response === 200) {
-        window.location = '/adminHome';
+      if (response.status === 200) {
+        alert('opportunity deleted successfully');
       }
     } catch (err) {
       console.log(err);
     }
   };
-
 
   return (
     <tr>
@@ -38,7 +36,6 @@ const AdminCompanyData = ({
       <td>{status}</td>
       <td>
         <Link to="/adminedit">
-          {' '}
           <button
             className="ui button"
             onClick={() => {

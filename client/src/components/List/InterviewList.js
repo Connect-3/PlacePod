@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import Feed from '../DashBoard/Feed';
 
 const InterviewList = ({
@@ -11,6 +11,7 @@ const InterviewList = ({
   updateStudent,
 }) => {
   const [renderedList, setRenderedList] = useState([]);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     try {
@@ -44,6 +45,7 @@ const InterviewList = ({
 
         if (res.status === 200) {
           setRenderedList(res.data);
+          setLoad(false);
           console.log(res.data);
         } else {
           console.log('error');
@@ -66,6 +68,7 @@ const InterviewList = ({
       setStudentData={setStudentData}
       updateStudent={updateStudent}
       renderedList={renderedList}
+      load={load}
     />
   );
 };

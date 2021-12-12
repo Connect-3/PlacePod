@@ -97,6 +97,29 @@ body::webkit-scrollbar {
   width: 70%;
 }
 
+#loader {
+  border: 2px solid #f3f3f3; /* Light grey */
+  border-top: 2px solid gray;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+.loading {
+  text-align: center;
+  padding-top: 5vh;
+  padding-left: 35vw;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media only screen and (max-width: 1000px) {
   #sidebar {
     /* visibility: hidden; */

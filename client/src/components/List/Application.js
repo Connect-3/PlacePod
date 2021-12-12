@@ -11,6 +11,7 @@ const Application = ({
   updateStudent,
 }) => {
   const [renderedList, setRenderedList] = useState([]);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     try {
@@ -43,6 +44,7 @@ const Application = ({
 
         if (res.status === 200) {
           setRenderedList(res.data);
+          setLoad(false);
           console.log(res.data);
         } else {
           console.log('error');
@@ -65,6 +67,7 @@ const Application = ({
       setStudentData={setStudentData}
       updateStudent={updateStudent}
       renderedList={renderedList}
+      load={load}
     />
   );
 };

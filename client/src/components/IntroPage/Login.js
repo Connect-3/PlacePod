@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import InputType from './InputType';
 import './IntroPage.css';
 
@@ -9,14 +11,15 @@ const Login = ({ admin, setAdmin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cg, setCg] = useState();
+  const [resume, setResume] = useState('');
 
   const SignIn = async (e) => {
     try {
       e.preventDefault();
-      const data = { email, enrollment, password, cg };
+      const data = { email, enrollment, password, cg, resume };
       const res = await axios.post('/register', data);
-      if (res.status === 422) alert('domo');
       if (res.status === 201) {
+        alert('registration complete');
         window.location = '/';
       } else alert('Invaid Credentials');
     } catch (err) {
@@ -32,12 +35,13 @@ const Login = ({ admin, setAdmin }) => {
         password,
       });
 
-
       if (res.status === 200) {
         localStorage.setItem('enrollment', enrollment);
+        alert('login successful');
         window.location = '/home';
       }
     } catch (err) {
+      alert(err.response.data.error);
       console.log(err);
     }
 
@@ -66,6 +70,14 @@ const Login = ({ admin, setAdmin }) => {
         />
         {!logIn && (
           <InputType type="Number" label="cg" val={cg} setVal={setCg} />
+        )}
+        {!logIn && (
+          <InputType
+            type="text"
+            label="ResumeLink"
+            val={resume}
+            setVal={setResume}
+          />
         )}
         {!logIn && (
           <div className="ui field">

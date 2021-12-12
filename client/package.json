@@ -16,6 +16,7 @@
     "react-filter-search": "^1.1.11",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-toastify": "^8.1.0",
     "semantic-ui-react": "^2.0.4",
     "semantic-ui-segment": "^2.4.0",
     "web-vitals": "^1.0.1"

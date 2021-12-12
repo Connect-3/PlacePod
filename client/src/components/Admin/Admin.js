@@ -16,9 +16,11 @@ const Admin = ({ admin, setAdmin }) => {
       });
       if (res.status === 200) {
         localStorage.setItem('adminNumber', adminNumber);
+        alert('login successful');
         window.location = '/adminHome';
       }
     } catch (err) {
+      alert('Invalid Credential');
       console.log(err);
     }
   };

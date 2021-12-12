@@ -9,9 +9,9 @@ const Student = require('../models/Student');
 const Admin = require('../models/Admin');
 
 router.post('/register', async (req, res) => {
-  const { enrollment, email, password, cg } = req.body;
+  const { enrollment, email, password, cg, resume } = req.body;
   try {
-    if (!enrollment || !email || !password || !cg) {
+    if (!enrollment || !email || !password || !cg || !resume) {
       return res.status(422).json({ error: 'Fill all the fields' });
     }
     const studentExist = await Student.findOne({ enrollment: enrollment });
@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
       return res.status(422).json({ error: 'Account Already Exist' });
     }
 
-    const student = new Student({ enrollment, email, password, cg });
+    const student = new Student({ enrollment, email, password, cg, resume });
 
     await student.save();
     res.status(201).json({ message: 'user registration complete' });
@@ -67,6 +67,7 @@ router.post('/adminlogin', async (req, res) => {
     const adminLogin = await Admin.findOne({ adminNumber: adminNumber });
     if (adminLogin) {
       const isMatch = await bcrypt.compare(password, adminLogin.password);
+      console.log(isMatch);
       const token = await adminLogin.generateAuthToken();
       res.cookie('jwttoken', token, {
         expires: new Date(Date.now() + 25892000000),

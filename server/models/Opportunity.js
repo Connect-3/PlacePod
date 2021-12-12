@@ -38,7 +38,7 @@ const OpportunitySchema = new mongoose.Schema({
     required: false,
   },
   stage: {
-    type: String, //
+    type: String, 
     required: true,
   },
   students: {

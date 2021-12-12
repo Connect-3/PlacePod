@@ -26,6 +26,7 @@ const LeftForm = ({
 }) => {
   return (
     <div className="eight wide column" id="admin-left">
+      <h4 class="ui dividing header">Add Opportunity Details</h4>
       <div className="ui container">
         <div className="fields">
           <div className="field">
@@ -217,7 +218,7 @@ const LeftForm = ({
           </div>
         </div>
 
-        <button className="ui button" onClick={handleSubmit}>
+        <button className="ui basic black button" onClick={handleSubmit}>
           Submit
         </button>
       </div>

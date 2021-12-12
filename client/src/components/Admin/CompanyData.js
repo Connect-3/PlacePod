@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import LeftForm from './LeftForm';
 import RightForm from './RightForm';
@@ -16,13 +17,31 @@ const CompanyData = () => {
   const [stage, setStage] = useState('');
   const [_id, setId] = useState();
   let [students, setStudents] = useState([]);
+  const [textarea, setTextarea] = useState('');
 
   useEffect(() => {
     if (!localStorage.getItem('adminNumber')) return (window.location = '/');
   });
+
+  useEffect(() => {
+    if (localStorage.getItem('editAdmin')) {
+      const response = async () => {
+        const obj = JSON.parse(localStorage.getItem('opportunity'));
+
+        const tempArray = await axios.get('/getArray', {
+          params: {
+            _id: obj._id,
+          },
+        });
+        setStudents(tempArray.data.array);
+      };
+      response();
+    }
+  }, [textarea]);
   useEffect(() => {
     if (localStorage.getItem('editAdmin')) {
       const obj = JSON.parse(localStorage.getItem('opportunity'));
+
       setCompanyName(obj.company_name);
       setJobTitle(obj.job_title);
       setCtc(obj.ctc);
@@ -45,7 +64,7 @@ const CompanyData = () => {
           return item.isChecked === true;
         })
         .map((item) => {
-          return { enrollment: item.enrollment };
+          return { enrollment: item.enrollment, resume: item.resume };
         });
       const obj = {
         company_name,
@@ -93,9 +112,48 @@ const CompanyData = () => {
 
   return (
     <div id="admin-grid">
-      <h1 className="header" id="admin-h1">
-        Opportunity Panel
-      </h1>
+      <div className="ui secondary menu" id="admin-menu">
+        <div className="item">
+          <h2 className="header" id="admin-h1">
+            <i className="ui file alternate outline icon purple"></i>
+            Opportunity Panel
+          </h2>
+        </div>
+        <div className="ui item"></div>
+        <div className="right menu">
+          <div class="ui label item">
+            <Link
+              to="/adminHome"
+              style={{ fontWeight: 'bolder', color: 'black' }}
+            >
+              <i
+                className="ui home icon large"
+                style={{ fontWeight: 'bolder', color: 'black' }}
+              ></i>
+              Home
+            </Link>
+          </div>
+          <div class="ui label item">
+            <i
+              className="ui user circle icon large"
+              style={{ fontWeight: 'bolder' }}
+            ></i>
+            {localStorage.getItem('adminNumber')}
+          </div>
+          <div className="ui item">
+            <button
+              className="ui button"
+              onClick={() => {
+                localStorage.clear();
+                window.location = '/';
+              }}
+              style={{ backgroundColor: '#A569BD', color: 'white' }}
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
       <form className="ui form">
         <div className="ui grid">
           <LeftForm
@@ -121,12 +179,14 @@ const CompanyData = () => {
             students={students}
             handleSubmit={handleSubmit}
           />
-          {localStorage.getItem('editAdmin') && (
-            <RightForm
-              handleChangeCheckbox={handleChangeCheckbox}
-              students={students}
-            />
-          )}
+          {/* {localStorage.getItem('editAdmin') && ( */}
+          <RightForm
+            handleChangeCheckbox={handleChangeCheckbox}
+            students={students}
+            _id={_id}
+            textarea={textarea}
+            setTextarea={setTextarea}
+          />
         </div>
       </form>
     </div>

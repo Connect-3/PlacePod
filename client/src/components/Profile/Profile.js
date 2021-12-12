@@ -22,6 +22,7 @@ const Profile = ({ setStudentData, studentData }) => {
   const [resume, setResume] = useState('');
   const [edit, setEdit] = useState(true);
   const [data, setData] = useState({});
+  const [load, setLoad] = useState(true);
 
   const updateProfile = async () => {
     try {
@@ -60,7 +61,10 @@ const Profile = ({ setStudentData, studentData }) => {
           enrollment: localStorage.getItem('enrollment'),
         },
       });
-      setData(res.data);
+      if (res.status === 200) {
+        setLoad(false);
+        setData(res.data);
+      }
     };
     response();
   }, []);
@@ -96,74 +100,17 @@ const Profile = ({ setStudentData, studentData }) => {
 
     if (data.resume) setResume(data.resume);
   }, [data]);
-  // useEffect(() => {
-  //   try {
-  //     const response = async () => {
-  //       const res = await axios.get('/feed', { withCredentials: true });
-  //       if (res.data === 'token undefined') window.location = '/';
-  //       if (!res.status === 200) {
-  //         const error = new Error(res.error);
-  //         throw error;
-  //       }
-  //       if (!res.status === 200) {
-  //         window.location = '/';
-  //         const error = await new Error(res.error);
-  //         console.log(error);
-  //         throw error;
-  //       }
-  //       setStudentData(res.data);
-  //       if (firstName) setFirstName(studentData.firstName);
-  //       else setFirstName('');
-  //       if (lastName) setLastName(studentData.lastName);
-  //       else setLastName('');
-  //       if (middleName) setMiddleName(studentData.middleName);
-  //       else setMiddleName('');
-  //       if (cg) setCg(studentData.cg);
-  //       else setCg(null);
-  //       if (branch) setBranch(studentData.branch);
-  //       else setBranch('');
-  //       if (codechef) setCodechef(studentData.codechef);
-  //       else setCodechef('');
-  //       if (codeforces) setCodeforces(studentData.codeforces);
-  //       else setCodeforces('');
-  //       if (enrollment) setEnrollment(studentData.enrollment);
-  //       else setEnrollment('');
-  //       if (email) setEmail(studentData.email);
-  //       else setEmail('');
-  //       if (gender) setGender(studentData.gender);
-  //       else setGender('');
-  //       if (graduationYear) setGraduationYear(studentData.graduationYear);
-  //       else setGraduationYear('');
-  //       if (linkedin) setLinkedin(studentData.linkedin);
-  //       else setGraduationYear('');
-  //       if (github) setGithub(studentData.github);
-  //       else setGithub('');
-  //       if (resume) setResume(studentData.resume);
-  //       else setResume('');
-  //     };
-  //     response();
-  //   } catch (err) {
-  //     window.location = '/';
-  //   }
-  // }, [
-  //   setStudentData,
-  //   firstName,
-  //   middleName,
-  //   lastName,
-  //   enrollment,
-  //   email,
-  //   branch,
-  //   graduationYear,
-  //   github,
-  //   resume,
-  //   linkedin,
-  //   gender,
-  //   codechef,
-  //   codeforces,
-  //   cg,
-  //   studentData,
-  // ]);
 
+  if (load) {
+    return (
+      <div class="ui " style={{ marginTop: '90vh' }}>
+        <div class="ui active inverted dimmer">
+          <div class="ui text loader">Loading</div>
+        </div>
+        <p></p>
+      </div>
+    );
+  }
   if (firstName === '' && edit === true) {
     return (
       <div className="new-profile">
