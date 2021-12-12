@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import FeedHeader from '../DashBoard/FeedHeader';
-import NavigationBar from '../NavigationBar/NavigationBar';
 import { Link } from 'react-router-dom';
 import AdminCompanyData from './AdminCompanyData';
 import axios from 'axios';
@@ -19,7 +17,6 @@ const AdminList = ({ searchTerm, setSearchTerm, heading, content, stage }) => {
         if (res.status === 200) {
           setLoad(false);
           setArray(res.data);
-          console.log(array);
         }
       };
 
@@ -34,10 +31,7 @@ const AdminList = ({ searchTerm, setSearchTerm, heading, content, stage }) => {
       localStorage.removeItem('opportunity');
     }
   });
-  const adminData = {
-    enrollment: localStorage.getItem('adminNumber'),
-  };
-
+ 
   const isStatus = (company) => {
     if (company.stage === '0') return 'Application';
     else if (company.stage === '1') return 'Coding Round';

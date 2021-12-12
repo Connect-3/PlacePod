@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './DashBoard.css';
-import Feed from './Feed';
 
 const linkStyle = {
   color: '#EEEEEE',

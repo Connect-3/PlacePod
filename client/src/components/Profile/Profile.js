@@ -26,7 +26,6 @@ const Profile = ({ setStudentData, studentData }) => {
 
   const updateProfile = async () => {
     try {
-      console.log(gender);
       const res = await axios.post('/updateProfile', {
         enrollment,
         email,

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../DetailPage/detailpage.css';
-import logo from '../Image/yellow_bg.jpeg';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 const DetailPage = ({

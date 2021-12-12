@@ -21,7 +21,6 @@ const App = () => {
       window.location.pathname === '/adminHome' ||
       window.location.pathname === '/adminedit'
     ) {
-      console.log('hello');
       return (
         <AdminPortal searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       );

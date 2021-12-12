@@ -39,7 +39,6 @@ router.post('/deleteOpportunity', async (req, res) => {
 router.post('/addStudents', async (req, res) => {
   const { textarea, _id } = req.body;
   const array = textarea.split(',');
-  console.log(array);
   const filter = { enrollment: { $in: array } };
   const studentArray = await Student.find(filter);
   console.log(studentArray.length);
@@ -49,7 +48,6 @@ router.post('/addStudents', async (req, res) => {
     return { enrollment: student.enrollment, resume: student.resume };
   });
 
-  // console.log(addStudentArray);
 
   for (let i = 0; i < studentArray.length; i++) {
     const idx = studentArray[i].opportunities.indexOf(_id);
@@ -57,7 +55,6 @@ router.post('/addStudents', async (req, res) => {
     if (idx >= 0) {
       return res.status(404).json({ message: 'Already Exist' });
     }
-    console.log(';lkjkj');
     if (idx === -1) {
       studentArray[i].opportunities.push(_id);
       await studentArray[i].save();

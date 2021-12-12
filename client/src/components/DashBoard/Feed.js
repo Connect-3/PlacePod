@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import CompanyEntry from './CompanyEntry';
 import FeedHeader from './FeedHeader';
 import './DashBoard.css';
@@ -16,7 +15,6 @@ const Feed = ({
   renderedList,
   load,
 }) => {
-  console.log(studentData);
   const [array, setArray] = useState([]);
   useEffect(() => {
     setArray(renderedList);
@@ -25,7 +23,6 @@ const Feed = ({
   const [canApply, setCanApply] = useState(true);
 
   const isValid = (company) => {
-    console.log(searchTerm);
     return (
       company.job_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       company.ctc.toLowerCase().includes(searchTerm.toLowerCase()) ||

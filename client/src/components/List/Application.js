@@ -45,7 +45,6 @@ const Application = ({
         if (res.status === 200) {
           setRenderedList(res.data);
           setLoad(false);
-          console.log(res.data);
         } else {
           console.log('error');
         }

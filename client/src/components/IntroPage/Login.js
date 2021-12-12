@@ -69,7 +69,7 @@ const Login = ({ admin, setAdmin }) => {
           setVal={setPassword}
         />
         {!logIn && (
-          <InputType type="Number" label="cg" val={cg} setVal={setCg} />
+          <InputType type="Number" label="CGPA" val={cg} setVal={setCg} />
         )}
         {!logIn && (
           <InputType

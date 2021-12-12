@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import './admin.css';
 
 const RightForm = ({
@@ -45,7 +45,6 @@ const RightForm = ({
           No students to select <i className="ui clipboard icon"></i>
         </h5>
       );
-    console.log(students);
     const array1 = students
       .filter((item) => {
         if (searchTerm === '') return item;

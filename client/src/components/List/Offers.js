@@ -46,7 +46,6 @@ const Offers = ({
         if (res.status === 200) {
           setLoad(false);
           setRenderedList(res.data);
-          console.log(res.data);
         } else {
           console.log('error');
         }
